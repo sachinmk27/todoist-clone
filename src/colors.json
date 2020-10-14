@@ -1,0 +1,22 @@
+{
+  "30": { "value": 30, "name": "Berry Red", "rgb": "rgb(184, 37, 95)" },
+  "31": { "value": 31, "name": "Red", "rgb": "rgb(219, 64, 53)" },
+  "32": { "value": 32, "name": "Orange", "rgb": "rgb(255, 153, 51)" },
+  "33": { "value": 33, "name": "Yellow", "rgb": "rgb(250, 208, 0)" },
+  "34": { "value": 34, "name": "Olive Green", "rgb": "rgb(175, 184, 59)" },
+  "35": { "value": 35, "name": "Lime Green", "rgb": "rgb(126, 204, 73)" },
+  "36": { "value": 36, "name": "Green", "rgb": "rgb(41, 148, 56)" },
+  "37": { "value": 37, "name": "Mint Green", "rgb": "rgb(106, 204, 188)" },
+  "38": { "value": 38, "name": "Teal", "rgb": "rgb(21, 143, 173)" },
+  "39": { "value": 39, "name": "Sky Blue", "rgb": "rgb(20, 170, 245)" },
+  "40": { "value": 40, "name": "Light Blue", "rgb": "rgb(150, 195, 235)" },
+  "41": { "value": 41, "name": "Blue", "rgb": "rgb(64, 115, 255)" },
+  "42": { "value": 42, "name": "Grape", "rgb": "rgb(136, 77, 255)" },
+  "43": { "value": 43, "name": "Violet", "rgb": "rgb(175, 56, 235)" },
+  "44": { "value": 44, "name": "Lavender", "rgb": "rgb(235, 150, 235)" },
+  "45": { "value": 45, "name": "Magenta", "rgb": "rgb(224, 81, 148)" },
+  "46": { "value": 46, "name": "Salmon", "rgb": "rgb(255, 141, 133)" },
+  "47": { "value": 47, "name": "Charcoal", "rgb": "rgb(128, 128, 128)" },
+  "48": { "value": 48, "name": "Grey", "rgb": "rgb(184, 184, 184)" },
+  "49": { "value": 49, "name": "Taupe", "rgb": "rgb(204, 172, 147)" }
+}
