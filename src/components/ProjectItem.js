@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Text, IconButton, Icon } from "@chakra-ui/core";
+import { Box, Text, IconButton, Icon, MenuTransition } from "@chakra-ui/core";
 import {
   RiCheckboxBlankCircleLine,
   RiMoreLine,
@@ -63,8 +63,12 @@ class ProjectItem extends Component {
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
       >
-        <Icon as={RiCheckboxBlankCircleLine} color={COLORS[color].rgb}></Icon>
-        <Text pl={2} color="gray.700" fontSize="sm" fontWeight="light">
+        <Icon
+          as={RiCheckboxBlankCircleLine}
+          boxSize={4}
+          color={COLORS[color].rgb}
+        ></Icon>
+        <Text mx={3} color="gray.700" fontSize="sm">
           {name}
         </Text>
         <Menu ml="auto" autoSelect={false} placement="right-start">
@@ -79,44 +83,65 @@ class ProjectItem extends Component {
           >
             <RiMoreLine />
           </MenuButton>
-          <MenuList>
-            {this.props.favorite ? (
-              <MenuItem p={2} onClick={this.handleRemoveFromFavorites}>
-                <Box display="flex" alignItems="center">
-                  <Icon boxSize={4} as={RiDislikeLine} color="gray.700"></Icon>
-                  <Text fontSize="xs" px={2} color="gray.700">
-                    Remove from favorites
-                  </Text>
-                </Box>
-              </MenuItem>
-            ) : (
-              <MenuItem p={2} onClick={this.handleAddToFavorites}>
-                <Box display="flex" alignItems="center">
-                  <Icon boxSize={4} as={RiStarLine} color="gray.700"></Icon>
-                  <Text fontSize="xs" px={2} color="gray.700">
-                    Add to favorites
-                  </Text>
-                </Box>
-              </MenuItem>
-            )}
-            <MenuItem p={2} onClick={() => this.props.onSelect(this.props.id)}>
-              <Box display="flex" alignItems="center">
-                <Icon boxSize={4} as={RiEditLine} color="gray.700"></Icon>
-                <Text fontSize="xs" px={2} color="gray.700">
-                  Edit project
-                </Text>
-              </Box>
-            </MenuItem>
-            <MenuDivider />
-            <MenuItem p={2} onClick={this.props.onDelete}>
-              <Box display="flex" alignItems="center">
-                <Icon boxSize={4} as={RiDeleteBinLine} color="gray.700"></Icon>
-                <Text fontSize="xs" px={2} color="gray.700">
-                  Delete project
-                </Text>
-              </Box>
-            </MenuItem>
-          </MenuList>
+          <MenuTransition>
+            {(styles) => {
+              return (
+                <MenuList sx={styles}>
+                  {this.props.favorite ? (
+                    <MenuItem p={2} onClick={this.handleRemoveFromFavorites}>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          boxSize={4}
+                          as={RiDislikeLine}
+                          color="gray.500"
+                        ></Icon>
+                        <Text fontSize="sm" px={3} color="gray.700">
+                          Remove from favorites
+                        </Text>
+                      </Box>
+                    </MenuItem>
+                  ) : (
+                    <MenuItem p={2} onClick={this.handleAddToFavorites}>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          boxSize={4}
+                          as={RiStarLine}
+                          color="gray.500"
+                        ></Icon>
+                        <Text fontSize="sm" px={3} color="gray.700">
+                          Add to favorites
+                        </Text>
+                      </Box>
+                    </MenuItem>
+                  )}
+                  <MenuItem
+                    p={2}
+                    onClick={() => this.props.onSelect(this.props.id)}
+                  >
+                    <Box display="flex" alignItems="center">
+                      <Icon boxSize={4} as={RiEditLine} color="gray.500"></Icon>
+                      <Text fontSize="sm" px={3} color="gray.700">
+                        Edit project
+                      </Text>
+                    </Box>
+                  </MenuItem>
+                  <MenuDivider />
+                  <MenuItem p={2} onClick={this.props.onDelete}>
+                    <Box display="flex" alignItems="center">
+                      <Icon
+                        boxSize={4}
+                        as={RiDeleteBinLine}
+                        color="gray.500"
+                      ></Icon>
+                      <Text fontSize="sm" px={3} color="gray.700">
+                        Delete project
+                      </Text>
+                    </Box>
+                  </MenuItem>
+                </MenuList>
+              );
+            }}
+          </MenuTransition>
         </Menu>
       </Box>
     );

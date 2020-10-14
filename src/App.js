@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Flex, Box, Text, Stack, Icon } from "@chakra-ui/core";
+import { Flex, Box, Text, Stack, Icon, IconButton } from "@chakra-ui/core";
 import {
   Accordion,
   AccordionItem,
@@ -30,9 +30,11 @@ class App extends Component {
     return (
       <Flex direction="column" h={["100vh"]}>
         <Header>
-          <Icon as={RiHome4Line} boxSize={6} color="white"></Icon>
+          <Box>
+            <Icon as={RiHome4Line} boxSize={6} color="white"></Icon>
+          </Box>
         </Header>
-        <Flex flex="1" maxH="93vh">
+        <Flex flex="1" maxH="94vh">
           <Sidebar>
             <Accordion defaultIndex={[0]} allowMultiple allowToggle>
               <Projects
@@ -46,7 +48,7 @@ class App extends Component {
                 }) => {
                   return (
                     <React.Fragment>
-                      <Stack mb={2}>
+                      <Stack mb={2} spacing={0}>
                         {projects
                           .filter((p) => p.name === "Inbox" || p.favorite)
                           .map((project) => {
@@ -67,6 +69,8 @@ class App extends Component {
                             <React.Fragment>
                               <AccordionButton
                                 px={2}
+                                as={Box}
+                                _hover={{ cursor: "pointer", bg: "gray.100" }}
                                 _focus={{ boxShadow: "none" }}
                               >
                                 {/* <AccordionIcon /> */}
@@ -75,13 +79,21 @@ class App extends Component {
                                 ) : (
                                   <Icon boxSize={4} as={RiArrowRightSLine} />
                                 )}
-                                <Box flex="1" textAlign="left" mx={2}>
+                                <Box flex="1" textAlign="left" mx={3}>
                                   <Text>Projects</Text>
                                 </Box>
+
+                                <ProjectModal
+                                  onSubmit={addProject}
+                                  edit={editProject}
+                                  onUpdate={updateProject}
+                                  onClose={() => setEditProject()}
+                                  iconOnly
+                                />
                               </AccordionButton>
                               <AccordionPanel pb={4} px={0}>
                                 <React.Fragment>
-                                  <Stack mb={2}>
+                                  <Stack mb={2} spacing={0}>
                                     {projects
                                       .filter((p) => p.name !== "Inbox")
                                       .map((project) => {
@@ -125,7 +137,7 @@ class App extends Component {
                         ) : (
                           <Icon boxSize={4} as={RiArrowRightSLine} />
                         )}
-                        <Box flex="1" textAlign="left" mx={2}>
+                        <Box flex="1" textAlign="left" mx={3}>
                           <Text>Labels</Text>
                         </Box>
                       </AccordionButton>
@@ -145,7 +157,7 @@ class App extends Component {
                         ) : (
                           <Icon boxSize={4} as={RiArrowRightSLine} />
                         )}
-                        <Box flex="1" textAlign="left" mx={2}>
+                        <Box flex="1" textAlign="left" mx={3}>
                           <Text>Filters</Text>
                         </Box>
                       </AccordionButton>
