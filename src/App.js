@@ -43,8 +43,11 @@ class App extends Component {
                   deleteProject,
                   updateProject,
                   addProject,
-                  setEditProject,
+                  setCurrentProject,
+                  currentProject,
+                  isEditing,
                   editProject,
+                  fromFavorites,
                 }) => {
                   return (
                     <React.Fragment>
@@ -58,7 +61,15 @@ class App extends Component {
                                 {...project}
                                 onDelete={() => deleteProject(project.id)}
                                 onUpdate={updateProject}
-                                onSelect={setEditProject}
+                                onEdit={editProject}
+                                onSelect={() =>
+                                  setCurrentProject(project.id, true)
+                                }
+                                isActive={
+                                  currentProject &&
+                                  fromFavorites &&
+                                  currentProject.id === project.id
+                                }
                               />
                             );
                           })}
@@ -84,10 +95,12 @@ class App extends Component {
                                 </Box>
 
                                 <ProjectModal
-                                  onSubmit={updateProject}
-                                  edit={editProject}
-                                  onClose={() => setEditProject()}
                                   iconOnly
+                                  isEditing={isEditing}
+                                  project={currentProject}
+                                  onUpdate={updateProject}
+                                  onAdd={addProject}
+                                  onClose={() => setCurrentProject()}
                                 />
                               </AccordionButton>
                               <AccordionPanel pb={4} px={0}>
@@ -104,12 +117,20 @@ class App extends Component {
                                               deleteProject(project.id)
                                             }
                                             onUpdate={updateProject}
-                                            onSelect={setEditProject}
+                                            onEdit={editProject}
+                                            onSelect={() =>
+                                              setCurrentProject(project.id)
+                                            }
+                                            isActive={
+                                              currentProject &&
+                                              !fromFavorites &&
+                                              currentProject.id === project.id
+                                            }
                                           />
                                         );
                                       })}
                                   </Stack>
-                                  <ProjectModal onSubmit={addProject} />
+                                  <ProjectModal onAdd={addProject} />
                                 </React.Fragment>
                               </AccordionPanel>
                             </React.Fragment>

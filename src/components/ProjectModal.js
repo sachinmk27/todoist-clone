@@ -37,13 +37,13 @@ class ProjectModal extends Component {
     this.cancelRef = React.createRef();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.edit && prevProps.edit !== this.props.edit) {
+    if (this.props.isEditing && prevProps.project !== this.props.project) {
       console.log("componentDidUpdate");
       this.setState({
         isOpen: true,
-        name: this.props.edit.name,
-        color: this.props.edit.color,
-        favorite: this.props.edit.favorite,
+        name: this.props.project.name,
+        color: this.props.project.color,
+        favorite: this.props.project.favorite,
       });
     }
   }
@@ -72,8 +72,8 @@ class ProjectModal extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, color, favorite } = this.state;
-    if (this.props.edit) {
-      this.props.onSubmit(this.props.edit.id, {
+    if (this.props.isEditing) {
+      this.props.onUpdate(this.props.project.id, {
         name,
         color: parseInt(color),
         favorite,
@@ -81,7 +81,7 @@ class ProjectModal extends Component {
       this.onClose();
       return;
     }
-    this.props.onSubmit({
+    this.props.onAdd({
       name,
       color: parseInt(color),
       favorite,
@@ -210,7 +210,7 @@ class ProjectModal extends Component {
                                 Cancel
                               </Button>
                               <Button colorScheme="red" type="submit" size="sm">
-                                {this.props.edit ? "Save" : "Add"}
+                                {this.props.project ? "Save" : "Add"}
                               </Button>
                             </ModalFooter>
                           </form>
