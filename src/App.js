@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Flex, Box, Text, Stack, Icon, IconButton } from "@chakra-ui/core";
+import { Flex, Box, Text, Stack, Icon } from "@chakra-ui/core";
 import {
   Accordion,
   AccordionItem,

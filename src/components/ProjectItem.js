@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Text, IconButton, Icon, MenuTransition } from "@chakra-ui/core";
+import { Box, Text, Icon, MenuTransition } from "@chakra-ui/core";
 import {
   RiCheckboxBlankCircleLine,
   RiMoreLine,
