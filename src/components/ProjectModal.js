@@ -55,7 +55,9 @@ class ProjectModal extends Component {
       color: Object.values(COLORS)[0].value,
       favorite: false,
     });
-    this.props.onClose();
+    if (this.props.onClose) {
+      this.props.onClose();
+    }
   };
   handleChange = (e) => {
     this.setState({
@@ -71,7 +73,7 @@ class ProjectModal extends Component {
     e.preventDefault();
     const { name, color, favorite } = this.state;
     if (this.props.edit) {
-      this.props.onUpdate(this.props.edit.id, {
+      this.props.onSubmit(this.props.edit.id, {
         name,
         color: parseInt(color),
         favorite,

@@ -84,9 +84,8 @@ class App extends Component {
                                 </Box>
 
                                 <ProjectModal
-                                  onSubmit={addProject}
+                                  onSubmit={updateProject}
                                   edit={editProject}
-                                  onUpdate={updateProject}
                                   onClose={() => setEditProject()}
                                   iconOnly
                                 />
@@ -110,12 +109,7 @@ class App extends Component {
                                         );
                                       })}
                                   </Stack>
-                                  <ProjectModal
-                                    onSubmit={addProject}
-                                    edit={editProject}
-                                    onUpdate={updateProject}
-                                    onClose={() => setEditProject()}
-                                  />
+                                  <ProjectModal onSubmit={addProject} />
                                 </React.Fragment>
                               </AccordionPanel>
                             </React.Fragment>
