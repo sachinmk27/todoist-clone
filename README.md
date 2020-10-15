@@ -1,5 +1,13 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## How to run the app
+
+1.  Create a Todoist account.
+2.  Go to https://todoist.com/Users/viewPrefs?page=integrations and get your API token
+3.  In the repo, create a .env in the root folder. A sample .env has been included in the repo
+4.  Update the API token in .env with your token
+5.  `npm run start`
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -20,9 +28,11 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
+
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.<br />
+
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
