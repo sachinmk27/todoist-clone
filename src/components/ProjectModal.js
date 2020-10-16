@@ -37,7 +37,11 @@ class ProjectModal extends Component {
     this.cancelRef = React.createRef();
   }
   componentDidUpdate(prevProps) {
-    if (this.props.isEditing && prevProps.project !== this.props.project) {
+    if (
+      this.props.isEditing &&
+      (prevProps.project !== this.props.project ||
+        prevProps.isEditing !== this.props.isEditing)
+    ) {
       console.log("componentDidUpdate");
       this.setState({
         isOpen: true,
