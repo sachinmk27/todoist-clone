@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Box, Text, Icon, MenuTransition } from "@chakra-ui/core";
 import {
   RiCheckboxBlankCircleLine,
@@ -43,6 +43,10 @@ const ProjectItem = (props) => {
     onUpdate(projectId, {
       favorite: false,
     });
+  };
+  const handelEdit = (e) => {
+    e.stopPropagation();
+    onEdit();
   };
   return (
     <Box
@@ -107,7 +111,7 @@ const ProjectItem = (props) => {
                     </Box>
                   </MenuItem>
                 )}
-                <MenuItem p={2} onClick={() => onEdit(projectId)}>
+                <MenuItem p={2} onClick={handelEdit}>
                   <Box display="flex" alignItems="center">
                     <Icon boxSize={4} as={RiEditLine} color="gray.500"></Icon>
                     <Text fontSize="sm" px={3} color="gray.700">

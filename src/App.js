@@ -23,8 +23,29 @@ import ProjectModal from "./components/ProjectModal";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      activeProjectID: null,
+      isFromFavorites: false,
+      isEditing: false,
+    };
   }
+
+  setActiveProject = (id, isFromFavorites = false) => {
+    this.setState({
+      activeProjectID: id,
+      isFromFavorites,
+      isEditing: false,
+    });
+  };
+
+  handleEditProject = (id, isFromFavorites = false) => {
+    console.log(id, isFromFavorites);
+    this.setState({
+      activeProjectID: id,
+      isEditing: true,
+      isFromFavorites,
+    });
+  };
 
   render() {
     return (
@@ -43,11 +64,11 @@ class App extends Component {
                   deleteProject,
                   updateProject,
                   addProject,
-                  setCurrentProject,
-                  currentProject,
-                  isEditing,
-                  editProject,
-                  fromFavorites,
+                  // setCurrentProject,
+                  // currentProject,
+                  // isEditing,
+                  // editProject,
+                  // fromFavorites,
                 }) => {
                   return (
                     <React.Fragment>
@@ -61,14 +82,15 @@ class App extends Component {
                                 {...project}
                                 onDelete={() => deleteProject(project.id)}
                                 onUpdate={updateProject}
-                                onEdit={editProject}
+                                onEdit={() =>
+                                  this.handleEditProject(project.id, true)
+                                }
                                 onSelect={() =>
-                                  setCurrentProject(project.id, true)
+                                  this.setActiveProject(project.id, true)
                                 }
                                 isActive={
-                                  currentProject &&
-                                  fromFavorites &&
-                                  currentProject.id === project.id
+                                  this.state.isFromFavorites &&
+                                  this.state.activeProjectID === project.id
                                 }
                               />
                             );
@@ -96,11 +118,13 @@ class App extends Component {
 
                                 <ProjectModal
                                   iconOnly
-                                  isEditing={isEditing}
-                                  project={currentProject}
+                                  isEditing={this.state.isEditing}
+                                  project={projects.find(
+                                    (p) => p.id === this.state.activeProjectID
+                                  )}
                                   onUpdate={updateProject}
                                   onAdd={addProject}
-                                  onClose={() => setCurrentProject()}
+                                  onClose={() => this.setActiveProject(null)}
                                 />
                               </AccordionButton>
                               <AccordionPanel pb={4} px={0}>
@@ -117,14 +141,16 @@ class App extends Component {
                                               deleteProject(project.id)
                                             }
                                             onUpdate={updateProject}
-                                            onEdit={editProject}
+                                            onEdit={() =>
+                                              this.handleEditProject(project.id)
+                                            }
                                             onSelect={() =>
-                                              setCurrentProject(project.id)
+                                              this.setActiveProject(project.id)
                                             }
                                             isActive={
-                                              currentProject &&
-                                              !fromFavorites &&
-                                              currentProject.id === project.id
+                                              !this.state.isFromFavorites &&
+                                              this.state.activeProjectID ===
+                                                project.id
                                             }
                                           />
                                         );

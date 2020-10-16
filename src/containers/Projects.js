@@ -7,28 +7,12 @@ class Projects extends Component {
     super(props);
     this.state = {
       projects: [],
-      currentProject: null,
-      isEditing: false,
     };
   }
   componentDidMount() {
     this.fetchProjects();
   }
 
-  setCurrentProject = (id, fromFavorites) => {
-    if (id) {
-      this.setState({
-        currentProject: this.state.projects.find((p) => p.id === id),
-        fromFavorites,
-      });
-    } else {
-      this.setState({
-        currentProject: null,
-        isEditing: false,
-        fromFavorites: false,
-      });
-    }
-  };
   fetchProjects = async () => {
     const projects = await projectService.getAll();
     this.setState({
@@ -62,26 +46,15 @@ class Projects extends Component {
     });
   };
 
-  editProject = (id) => {
-    this.setState({
-      currentProject: this.state.projects.find((p) => p.id === id),
-      isEditing: true,
-    });
-  };
   render() {
-    const { projects, currentProject, isEditing, fromFavorites } = this.state;
+    const { projects } = this.state;
     return (
       <React.Fragment>
         {this.props.render({
           projects,
-          currentProject,
-          isEditing,
-          fromFavorites,
           updateProject: this.updateProject,
           deleteProject: this.deleteProject,
           addProject: this.addProject,
-          setCurrentProject: this.setCurrentProject,
-          editProject: this.editProject,
         })}
       </React.Fragment>
     );
