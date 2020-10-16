@@ -127,7 +127,6 @@ class ProjectModal extends Component {
                 onClose={this.onClose}
                 initialFocusRef={this.initialRef}
                 leastDestructiveRef={this.cancelRef}
-                isCentered
               >
                 <ModalOverlay style={styles}>
                   <SlideFade
