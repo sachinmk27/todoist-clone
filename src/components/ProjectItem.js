@@ -22,6 +22,7 @@ import {
 } from "@chakra-ui/core";
 
 import COLORS from "../colors.json";
+import AlertModal from "./AlertDialog";
 
 const ProjectItem = (props) => {
   const {
@@ -136,18 +137,27 @@ const ProjectItem = (props) => {
                   {onDelete && (
                     <React.Fragment>
                       <MenuDivider />
-                      <MenuItem py={2} px={3} onClick={onDelete}>
-                        <Box display="flex" alignItems="center">
-                          <Icon
-                            boxSize={5}
-                            as={RiDeleteBin7Line}
-                            color="gray.500"
-                          ></Icon>
-                          <Text fontSize="sm" px={3} color="gray.700">
-                            Delete project
-                          </Text>
-                        </Box>
-                      </MenuItem>
+                      <AlertModal
+                        title="Delete project"
+                        body={`Are you sure you want to delete ${name}?`}
+                        action="Delete"
+                        onClose={onDelete}
+                        trigger={
+                          <MenuItem py={2} px={3}>
+                            <Box display="flex" alignItems="center">
+                              <Icon
+                                boxSize={5}
+                                as={RiDeleteBin7Line}
+                                color="gray.500"
+                              ></Icon>
+
+                              <Text fontSize="sm" px={3} color="gray.700">
+                                Delete project
+                              </Text>
+                            </Box>
+                          </MenuItem>
+                        }
+                      />
                     </React.Fragment>
                   )}
                 </MenuList>
