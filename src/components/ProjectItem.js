@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Text, Icon, MenuTransition } from "@chakra-ui/core";
 import {
-  RiCheckboxBlankCircleLine,
+  RiCheckboxBlankCircleFill,
   RiMoreLine,
   RiDeleteBinLine,
   RiStarLine,
@@ -62,7 +62,7 @@ const ProjectItem = (props) => {
       bg={isActive ? "white" : "transparent"}
     >
       <Icon
-        as={RiCheckboxBlankCircleLine}
+        as={RiCheckboxBlankCircleFill}
         boxSize={4}
         color={COLORS[color].rgb}
       ></Icon>
