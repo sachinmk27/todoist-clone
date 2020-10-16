@@ -74,13 +74,13 @@ class App extends Component {
                     <React.Fragment>
                       <Stack mb={2} spacing={0}>
                         {projects
-                          .filter((p) => p.name === "Inbox" || p.favorite)
+                          .filter((p) => p.inbox_project || p.favorite)
                           .map((project) => {
                             return (
                               <ProjectItem
                                 key={project.id}
                                 {...project}
-                                onDelete={() => deleteProject(project.id)}
+                                // onDelete={() => deleteProject(project.id)}
                                 onUpdate={updateProject}
                                 onEdit={() =>
                                   this.handleEditProject(project.id, true)
@@ -131,7 +131,7 @@ class App extends Component {
                                 <React.Fragment>
                                   <Stack mb={2} spacing={0}>
                                     {projects
-                                      .filter((p) => p.name !== "Inbox")
+                                      .filter((p) => !p.inbox_project)
                                       .map((project) => {
                                         return (
                                           <ProjectItem

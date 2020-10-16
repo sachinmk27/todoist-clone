@@ -1,12 +1,13 @@
 import React from "react";
-import { Box, Text, Icon, MenuTransition } from "@chakra-ui/core";
+import { Box, Text, Icon, MenuTransition, Tooltip } from "@chakra-ui/core";
 import {
   RiCheckboxBlankCircleFill,
   RiMoreLine,
-  RiDeleteBinLine,
+  RiDeleteBin7Line,
   RiStarLine,
   RiDislikeLine,
   RiEditLine,
+  RiInboxFill,
 } from "react-icons/ri";
 
 import {
@@ -33,6 +34,7 @@ const ProjectItem = (props) => {
     onEdit,
     onSelect,
     isActive,
+    inbox_project: isInboxProject,
   } = props;
   const handleAddToFavorites = () => {
     onUpdate(projectId, {
@@ -48,6 +50,7 @@ const ProjectItem = (props) => {
     e.stopPropagation();
     onEdit();
   };
+
   return (
     <Box
       display="flex"
@@ -61,82 +64,98 @@ const ProjectItem = (props) => {
       onClick={onSelect}
       bg={isActive ? "white" : "transparent"}
     >
-      <Icon
-        as={RiCheckboxBlankCircleFill}
-        boxSize={4}
-        color={COLORS[color].rgb}
-      ></Icon>
+      {isInboxProject ? (
+        <Icon as={RiInboxFill} boxSize={4} color="gray.700"></Icon>
+      ) : (
+        <Icon
+          as={RiCheckboxBlankCircleFill}
+          boxSize={4}
+          color={COLORS[color].rgb}
+        ></Icon>
+      )}
       <Text mx={3} color="gray.700" fontSize="sm">
         {name}
       </Text>
-      <Menu ml="auto" autoSelect={false} placement="right-start">
-        <MenuButton
-          bg="none"
-          ml="auto"
-          onClick={(e) => e.stopPropagation()}
-          visibility="hidden"
-          _groupHover={{
-            visibility: "visible",
-          }}
-          _hover={{
-            bg: "none",
-          }}
-        >
-          <RiMoreLine />
-        </MenuButton>
-        <MenuTransition>
-          {(styles) => {
-            return (
-              <MenuList sx={styles}>
-                {favorite ? (
-                  <MenuItem p={2} onClick={handleRemoveFromFavorites}>
+      {!isInboxProject && (
+        <Menu ml="auto" autoSelect={false} placement="right-start">
+          <Tooltip label="More actions">
+            <MenuButton
+              bg="none"
+              ml="auto"
+              onClick={(e) => e.stopPropagation()}
+              visibility="hidden"
+              _groupHover={{
+                visibility: "visible",
+              }}
+              _hover={{
+                bg: "none",
+              }}
+            >
+              <RiMoreLine />
+            </MenuButton>
+          </Tooltip>
+          <MenuTransition>
+            {(styles) => {
+              return (
+                <MenuList sx={styles} py={2}>
+                  {favorite ? (
+                    <MenuItem py={2} px={3} onClick={handleRemoveFromFavorites}>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          boxSize={5}
+                          as={RiDislikeLine}
+                          color="gray.500"
+                        ></Icon>
+                        <Text fontSize="sm" px={3} color="gray.700">
+                          Remove from favorites
+                        </Text>
+                      </Box>
+                    </MenuItem>
+                  ) : (
+                    <MenuItem py={2} px={3} onClick={handleAddToFavorites}>
+                      <Box display="flex" alignItems="center">
+                        <Icon
+                          boxSize={5}
+                          as={RiStarLine}
+                          color="gray.500"
+                        ></Icon>
+                        <Text fontSize="sm" px={3} color="gray.700">
+                          Add to favorites
+                        </Text>
+                      </Box>
+                    </MenuItem>
+                  )}
+                  <MenuItem py={2} px={3} onClick={handelEdit}>
                     <Box display="flex" alignItems="center">
-                      <Icon
-                        boxSize={4}
-                        as={RiDislikeLine}
-                        color="gray.500"
-                      ></Icon>
+                      <Icon boxSize={5} as={RiEditLine} color="gray.500"></Icon>
                       <Text fontSize="sm" px={3} color="gray.700">
-                        Remove from favorites
+                        Edit project
                       </Text>
                     </Box>
                   </MenuItem>
-                ) : (
-                  <MenuItem p={2} onClick={handleAddToFavorites}>
-                    <Box display="flex" alignItems="center">
-                      <Icon boxSize={4} as={RiStarLine} color="gray.500"></Icon>
-                      <Text fontSize="sm" px={3} color="gray.700">
-                        Add to favorites
-                      </Text>
-                    </Box>
-                  </MenuItem>
-                )}
-                <MenuItem p={2} onClick={handelEdit}>
-                  <Box display="flex" alignItems="center">
-                    <Icon boxSize={4} as={RiEditLine} color="gray.500"></Icon>
-                    <Text fontSize="sm" px={3} color="gray.700">
-                      Edit project
-                    </Text>
-                  </Box>
-                </MenuItem>
-                <MenuDivider />
-                <MenuItem p={2} onClick={onDelete}>
-                  <Box display="flex" alignItems="center">
-                    <Icon
-                      boxSize={4}
-                      as={RiDeleteBinLine}
-                      color="gray.500"
-                    ></Icon>
-                    <Text fontSize="sm" px={3} color="gray.700">
-                      Delete project
-                    </Text>
-                  </Box>
-                </MenuItem>
-              </MenuList>
-            );
-          }}
-        </MenuTransition>
-      </Menu>
+                  {onDelete && (
+                    <React.Fragment>
+                      <MenuDivider />
+                      <MenuItem py={2} px={3} onClick={onDelete}>
+                        <Box display="flex" alignItems="center">
+                          <Icon
+                            boxSize={5}
+                            as={RiDeleteBin7Line}
+                            color="gray.500"
+                          ></Icon>
+                          <Text fontSize="sm" px={3} color="gray.700">
+                            Delete project
+                          </Text>
+                        </Box>
+                      </MenuItem>
+                    </React.Fragment>
+                  )}
+                </MenuList>
+              );
+            }}
+          </MenuTransition>
+        </Menu>
+      )}
     </Box>
   );
 };

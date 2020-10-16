@@ -98,7 +98,7 @@ class ProjectModal extends Component {
         {this.props.iconOnly ? (
           <IconButton
             onClick={(e) => {
-              e.preventDefault();
+              e.stopPropagation();
               this.onOpen();
             }}
             variant="ghost"
