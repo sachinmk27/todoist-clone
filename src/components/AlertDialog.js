@@ -23,8 +23,11 @@ class AlertModal extends Component {
 
   onOpen = () => this.setState({ isOpen: true });
   onClose = () => {
-    this.props.onClose();
     this.setState({ isOpen: false });
+  };
+  onSubmit = () => {
+    this.props.onClose();
+    this.onClose();
   };
   render() {
     const { trigger, title, body, action } = this.props;
@@ -52,7 +55,7 @@ class AlertModal extends Component {
                 </Button>
                 <Button
                   colorScheme="red"
-                  onClick={this.onClose}
+                  onClick={this.onSubmit}
                   ml={3}
                   size="sm"
                 >
