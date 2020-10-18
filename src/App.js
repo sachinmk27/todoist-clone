@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Flex, Box, Text, Stack, Icon } from "@chakra-ui/core";
+import { Flex, Box, Text, Stack, Icon, IconButton } from "@chakra-ui/core";
 import {
   Accordion,
   AccordionItem,
@@ -11,6 +11,7 @@ import {
   RiHome4Line,
   RiArrowRightSLine,
   RiArrowDownSLine,
+  RiMenuLine,
 } from "react-icons/ri";
 
 import Sidebar from "./components/Sidebar";
@@ -27,6 +28,7 @@ class App extends Component {
       activeProjectID: null,
       isFromFavorites: false,
       isEditing: false,
+      showSidebar: false,
     };
   }
 
@@ -47,30 +49,57 @@ class App extends Component {
     });
   };
 
+  handleToggleSidebar = () => {
+    this.setState((prevState) => {
+      return {
+        showSidebar: !prevState.showSidebar,
+      };
+    });
+  };
+
   render() {
     return (
       <Flex direction="column" h={["100vh"]}>
         <Header>
-          <Box>
-            <Icon as={RiHome4Line} boxSize={6} color="white"></Icon>
-          </Box>
+          <IconButton
+            h={8}
+            variant="unstyled"
+            _focus={{
+              boxShadow: "none",
+            }}
+            _hover={{
+              bg: "red.600",
+            }}
+            onClick={this.handleToggleSidebar}
+            icon={<Icon as={RiMenuLine} color="white"></Icon>}
+          />
+          <IconButton
+            h={8}
+            variant="unstyled"
+            _focus={{
+              boxShadow: "none",
+            }}
+            _hover={{
+              bg: "red.600",
+            }}
+            mx={2}
+            icon={<Icon as={RiHome4Line} color="white"></Icon>}
+          />
         </Header>
-        <Flex flex="1" maxH="94vh">
-          <Sidebar>
-            <Accordion defaultIndex={[0]} allowMultiple allowToggle>
-              <Projects
-                render={({
-                  projects,
-                  deleteProject,
-                  updateProject,
-                  addProject,
-                  // setCurrentProject,
-                  // currentProject,
-                  // isEditing,
-                  // editProject,
-                  // fromFavorites,
-                }) => {
-                  return (
+        <Flex flex="1">
+          <Projects
+            render={({
+              projects,
+              deleteProject,
+              updateProject,
+              addProject,
+            }) => {
+              return (
+                <Sidebar
+                  isOpen={this.state.showSidebar}
+                  onClose={this.handleToggleSidebar}
+                >
+                  <Accordion defaultIndex={[0]} allowMultiple allowToggle>
                     <React.Fragment>
                       <Stack mb={2} spacing={0}>
                         {projects
@@ -163,52 +192,58 @@ class App extends Component {
                           );
                         }}
                       </AccordionItem>
+                      <AccordionItem>
+                        {({ isExpanded }) => {
+                          return (
+                            <React.Fragment>
+                              <AccordionButton
+                                px={2}
+                                _focus={{ boxShadow: "none" }}
+                              >
+                                {/* <AccordionIcon /> */}
+                                {isExpanded ? (
+                                  <Icon boxSize={4} as={RiArrowDownSLine} />
+                                ) : (
+                                  <Icon boxSize={4} as={RiArrowRightSLine} />
+                                )}
+                                <Box flex="1" textAlign="left" mx={3}>
+                                  <Text>Labels</Text>
+                                </Box>
+                              </AccordionButton>
+                              <AccordionPanel pb={4} px={0}></AccordionPanel>
+                            </React.Fragment>
+                          );
+                        }}
+                      </AccordionItem>
+                      <AccordionItem>
+                        {({ isExpanded }) => {
+                          return (
+                            <React.Fragment>
+                              <AccordionButton
+                                px={2}
+                                _focus={{ boxShadow: "none" }}
+                              >
+                                {/* <AccordionIcon /> */}
+                                {isExpanded ? (
+                                  <Icon boxSize={4} as={RiArrowDownSLine} />
+                                ) : (
+                                  <Icon boxSize={4} as={RiArrowRightSLine} />
+                                )}
+                                <Box flex="1" textAlign="left" mx={3}>
+                                  <Text>Filters</Text>
+                                </Box>
+                              </AccordionButton>
+                              <AccordionPanel pb={4} px={0}></AccordionPanel>
+                            </React.Fragment>
+                          );
+                        }}
+                      </AccordionItem>
                     </React.Fragment>
-                  );
-                }}
-              />
-              <AccordionItem>
-                {({ isExpanded }) => {
-                  return (
-                    <React.Fragment>
-                      <AccordionButton px={2} _focus={{ boxShadow: "none" }}>
-                        {/* <AccordionIcon /> */}
-                        {isExpanded ? (
-                          <Icon boxSize={4} as={RiArrowDownSLine} />
-                        ) : (
-                          <Icon boxSize={4} as={RiArrowRightSLine} />
-                        )}
-                        <Box flex="1" textAlign="left" mx={3}>
-                          <Text>Labels</Text>
-                        </Box>
-                      </AccordionButton>
-                      <AccordionPanel pb={4} px={0}></AccordionPanel>
-                    </React.Fragment>
-                  );
-                }}
-              </AccordionItem>
-              <AccordionItem>
-                {({ isExpanded }) => {
-                  return (
-                    <React.Fragment>
-                      <AccordionButton px={2} _focus={{ boxShadow: "none" }}>
-                        {/* <AccordionIcon /> */}
-                        {isExpanded ? (
-                          <Icon boxSize={4} as={RiArrowDownSLine} />
-                        ) : (
-                          <Icon boxSize={4} as={RiArrowRightSLine} />
-                        )}
-                        <Box flex="1" textAlign="left" mx={3}>
-                          <Text>Filters</Text>
-                        </Box>
-                      </AccordionButton>
-                      <AccordionPanel pb={4} px={0}></AccordionPanel>
-                    </React.Fragment>
-                  );
-                }}
-              </AccordionItem>
-            </Accordion>
-          </Sidebar>
+                  </Accordion>
+                </Sidebar>
+              );
+            }}
+          />
           <Layout>
             <Text>Main content</Text>
           </Layout>
