@@ -4,7 +4,7 @@ import { Slide } from "@chakra-ui/transition";
 
 const Sidebar = ({ children, isOpen }) => {
   return (
-    <Slide placement="left" timeout={200} in={isOpen}>
+    <Slide placement="left" timeout={150} in={isOpen}>
       {(styles) => {
         const { transform, transition, willChange } = styles;
         return (

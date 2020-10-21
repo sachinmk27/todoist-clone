@@ -28,7 +28,7 @@ class App extends Component {
       activeProjectID: null,
       isFromFavorites: false,
       isEditing: false,
-      showSidebar: false,
+      showSidebar: true,
     };
   }
 
@@ -244,9 +244,7 @@ class App extends Component {
               );
             }}
           />
-          <Layout>
-            <Text>Main content</Text>
-          </Layout>
+          <Layout isFull={!this.state.showSidebar}></Layout>
         </Flex>
       </Flex>
     );
